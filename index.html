@@ -3,80 +3,137 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#100b20">
+<meta name="description" content="MathLingo — игровая платформа для изучения математики.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MathLingo">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.png">
 <title>MathLingo GLOBAL 5.0</title>
+
 <style>
 :root{
  --bg:#0c0916;--panel:#171126;--panel2:#211832;
  --purple:#9b5cff;--pink:#ec62d5;--text:#f7f1ff;
  --muted:#a99bbd;--green:#57e6a1;--line:#302344;
 }
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 80% 0%,#291344 0,transparent 35%),var(--bg);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+ margin:0;background:radial-gradient(circle at 80% 0%,#291344 0,transparent 35%),var(--bg);
+ color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+ min-height:100vh;min-height:100dvh;
+ padding-bottom:env(safe-area-inset-bottom);
+}
 button,input{font:inherit}
-button{cursor:pointer;color:white;border:0}
+button{cursor:pointer;color:white;border:0;touch-action:manipulation}
 .app{display:flex;min-height:100vh}
-.sidebar{width:235px;background:#100c1d;border-right:1px solid var(--line);padding:22px 14px;flex-shrink:0}
+.sidebar{
+ width:235px;background:#100c1d;border-right:1px solid var(--line);
+ padding:22px 14px;flex-shrink:0
+}
 .logo{font-size:23px;font-weight:900;margin:5px 8px 28px}
 .logo span{color:var(--purple)}
 .nav{display:grid;gap:7px}
-.nav button{background:transparent;text-align:left;padding:13px;border-radius:12px;color:var(--muted);transition:.2s}
-.nav button:hover,.nav button.active{background:linear-gradient(100deg,#6635a9,#9b5cff);color:white;transform:translateX(3px)}
+.nav button{
+ background:transparent;text-align:left;padding:14px;border-radius:12px;
+ color:var(--muted);transition:.2s
+}
+.nav button:hover,.nav button.active{
+ background:linear-gradient(100deg,#6635a9,#9b5cff);color:white
+}
 .main{flex:1;padding:25px;max-width:1400px;margin:auto;width:100%;min-width:0}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}
 .top h2{margin:0;font-size:21px}
 .stats{display:flex;gap:8px;flex-wrap:wrap}
 .pill{background:var(--panel2);padding:9px 13px;border-radius:20px;font-size:13px}
-.hero{background:linear-gradient(120deg,#54258e,#a34fd0 65%,#e16bc6);padding:27px;border-radius:22px;position:relative;overflow:hidden;animation:appear .5s}
-.hero:after{content:"✦";position:absolute;font-size:150px;right:25px;top:-30px;opacity:.15;animation:float 4s infinite ease-in-out}
+.hero{
+ background:linear-gradient(120deg,#54258e,#a34fd0 65%,#e16bc6);
+ padding:27px;border-radius:22px;position:relative;overflow:hidden;animation:appear .5s
+}
+.hero:after{
+ content:"✦";position:absolute;font-size:150px;right:25px;top:-30px;
+ opacity:.15;animation:float 4s infinite ease-in-out
+}
 .hero h1{font-size:clamp(27px,5vw,42px);margin:0 0 10px}
 .hero p{color:#f0dfff;max-width:550px;line-height:1.5}
-.btn{background:linear-gradient(100deg,var(--purple),var(--pink));padding:12px 17px;border-radius:12px;font-weight:bold;transition:.2s}
-.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.btn{
+ background:linear-gradient(100deg,var(--purple),var(--pink));
+ padding:14px 18px;border-radius:13px;font-weight:bold;transition:.2s;
+ min-height:46px
+}
+.btn:active{transform:scale(.97)}
 .btn.secondary{background:#302344;border:1px solid #513b70}
 .section-title{margin:28px 0 14px;font-size:19px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
-.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);padding:18px;border-radius:17px;transition:.25s;animation:appear .4s}
-.card:hover{transform:translateY(-4px);border-color:var(--purple);box-shadow:0 8px 30px #9b5cff20}
+.card{
+ background:linear-gradient(145deg,var(--panel2),var(--panel));
+ border:1px solid var(--line);padding:18px;border-radius:17px;
+ transition:.25s;animation:appear .4s
+}
+.card:hover{transform:translateY(-3px);border-color:var(--purple)}
 .card .emoji{font-size:30px}
 .card h3{margin:12px 0 7px}
 .card p{color:var(--muted);font-size:13px;line-height:1.5}
 .progress{height:8px;background:#332743;border-radius:10px;overflow:hidden;margin:12px 0}
-.progress div{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:10px;transition:width .5s}
+.progress div{
+ height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));
+ border-radius:10px;transition:width .5s
+}
 .page{display:none;animation:appear .3s}
 .page.active{display:block}
 .world{cursor:pointer}
-.world button{margin-top:7px}
-.quizbox{max-width:650px;margin:25px auto;background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:20px}
+.quizbox{
+ max-width:650px;margin:25px auto;background:var(--panel);
+ border:1px solid var(--line);padding:24px;border-radius:20px
+}
 .question{font-size:29px;font-weight:bold;text-align:center;margin:25px 0}
 .answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.answer{padding:16px;background:#2a1e3c;border:1px solid #49345e;border-radius:12px;font-size:19px}
-.answer:hover{background:#58338b}
-.answer:disabled{opacity:.65;cursor:default}
+.answer{
+ padding:17px;background:#2a1e3c;border:1px solid #49345e;
+ border-radius:12px;font-size:19px;min-height:58px
+}
+.answer:active{background:#58338b}
+.answer:disabled{opacity:.7;cursor:default}
 .feedback{text-align:center;min-height:30px;margin:15px}
-.field{width:100%;padding:13px;background:#0e0a18;border:1px solid var(--line);border-radius:10px;color:white;margin:8px 0}
+.field{
+ width:100%;padding:14px;background:#0e0a18;border:1px solid var(--line);
+ border-radius:10px;color:white;margin:8px 0;min-height:46px
+}
 .badge{display:inline-block;background:#432765;padding:6px 10px;border-radius:20px;font-size:12px}
-.mobilebar{display:none}
+.mobilebar{
+ display:none;position:fixed;bottom:0;left:0;right:0;
+ padding:8px 5px calc(8px + env(safe-area-inset-bottom));
+ background:#130e20;border-top:1px solid var(--line);
+ z-index:5
+}
+.mobilebar button{background:transparent;color:var(--muted);font-size:11px;padding:7px 2px}
+.mobilebar button span{display:block;font-size:20px;margin-bottom:3px}
 @keyframes appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes float{50%{transform:translateY(14px) rotate(12deg)}}
 @media(max-width:700px){
- .app{display:block}.sidebar{display:none}
- .main{padding:17px 13px 85px}
- .mobilebar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;bottom:0;left:0;right:0;background:#130e20;border-top:1px solid var(--line);padding:7px;z-index:5}
- .mobilebar button{background:transparent;color:var(--muted);font-size:11px;padding:7px 2px}
- .mobilebar button span{display:block;font-size:20px;margin-bottom:3px}
+ .app{display:block}
+ .sidebar{display:none}
+ .main{padding:calc(17px + env(safe-area-inset-top)) 13px 100px}
+ .mobilebar{display:grid;grid-template-columns:repeat(4,1fr)}
  .top{align-items:flex-start;flex-direction:column}
  .answers{grid-template-columns:1fr 1fr}
  .hero{padding:22px}
+ .quizbox{padding:17px;margin:15px auto}
+ .question{font-size:26px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important}
 }
 </style>
 </head>
+
 <body>
 <div class="app">
 <aside class="sidebar">
  <div class="logo">Math<span>Lingo</span> ✦</div>
- <div class="nav" id="nav">
+ <div class="nav">
   <button class="active" data-page="home">🏠 Главная</button>
   <button data-page="worlds">🌍 Математические миры</button>
   <button data-page="duel">⚔️ Дуэли</button>
@@ -89,106 +146,106 @@ button{cursor:pointer;color:white;border:0}
 </aside>
 
 <main class="main">
- <header class="top">
-  <h2 id="pageTitle">Главная</h2>
-  <div class="stats">
-   <div class="pill">⭐ Уровень <b id="level">1</b></div>
-   <div class="pill">✨ <b id="xp">0</b> XP</div>
-   <div class="pill">🪙 <b id="coins">0</b></div>
-  </div>
- </header>
+<header class="top">
+ <h2 id="pageTitle">Главная</h2>
+ <div class="stats">
+  <div class="pill">⭐ Уровень <b id="level">1</b></div>
+  <div class="pill">✨ <b id="xp">0</b> XP</div>
+  <div class="pill">🪙 <b id="coins">0</b></div>
+ </div>
+</header>
 
- <section class="page active" id="home">
-  <div class="hero">
-   <span class="badge">GLOBAL 5.0 • NEW ERA</span>
-   <h1>Твоя математика.<br>Твой мир.</h1>
-   <p>Учись, проходи испытания, зарабатывай опыт и открывай новые математические миры!</p>
-   <button class="btn" onclick="showPage('worlds')">Начать обучение →</button>
-  </div>
-  <h3 class="section-title">📊 Твой прогресс</h3>
-  <div class="grid">
-   <div class="card"><div class="emoji">⭐</div><h3 id="homeLevel">Уровень 1</h3><p>Твой текущий уровень</p><div class="progress"><div id="xpbar" style="width:0%"></div></div><small id="xptext">0 / 100 XP</small></div>
-   <div class="card"><div class="emoji">🧠</div><h3 id="correct">0</h3><p>Правильных ответов</p></div>
-   <div class="card"><div class="emoji">🔥</div><h3 id="streak">0</h3><p>Дней активности подряд (локальный счётчик)</p></div>
-   <div class="card"><div class="emoji">🏆</div><h3 id="achievements">0</h3><p>Открытых достижений</p></div>
-  </div>
-  <h3 class="section-title">🎯 Быстрый старт</h3>
-  <div class="grid">
-   <div class="card"><div class="emoji">➕</div><h3>Сложение</h3><p>Тренируй быстрый счёт.</p><button class="btn" onclick="startLesson('add')">Играть</button></div>
-   <div class="card"><div class="emoji">✖️</div><h3>Умножение</h3><p>Стань мастером таблицы умножения.</p><button class="btn" onclick="startLesson('mul')">Играть</button></div>
-   <div class="card"><div class="emoji">⚡</div><h3>Испытание</h3><p>Смешанные задания на скорость.</p><button class="btn" onclick="startLesson('mix')">Играть</button></div>
-  </div>
- </section>
+<section class="page active" id="home">
+ <div class="hero">
+  <span class="badge">GLOBAL 5.0 • iOS + ANDROID</span>
+  <h1>Твоя математика.<br>Твой мир.</h1>
+  <p>Учись, проходи испытания, зарабатывай опыт и открывай новые математические миры!</p>
+  <button class="btn" onclick="showPage('worlds')">Начать обучение →</button>
+ </div>
+ <h3 class="section-title">📊 Твой прогресс</h3>
+ <div class="grid">
+  <div class="card"><div class="emoji">⭐</div><h3 id="homeLevel">Уровень 1</h3><p>Твой уровень</p><div class="progress"><div id="xpbar" style="width:0%"></div></div><small id="xptext">0 / 100 XP</small></div>
+  <div class="card"><div class="emoji">🧠</div><h3 id="correct">0</h3><p>Правильных ответов</p></div>
+  <div class="card"><div class="emoji">🎮</div><h3 id="played">0</h3><p>Завершённых уроков</p></div>
+  <div class="card"><div class="emoji">🏆</div><h3 id="achievements">0</h3><p>Достижений</p></div>
+ </div>
+ <h3 class="section-title">🎯 Быстрый старт</h3>
+ <div class="grid">
+  <div class="card"><div class="emoji">➕</div><h3>Сложение</h3><p>Тренируй быстрый счёт.</p><button class="btn" onclick="startLesson('add')">Играть</button></div>
+  <div class="card"><div class="emoji">✖️</div><h3>Умножение</h3><p>Освой таблицу умножения.</p><button class="btn" onclick="startLesson('mul')">Играть</button></div>
+  <div class="card"><div class="emoji">⚡</div><h3>Испытание</h3><p>Смешанные задания.</p><button class="btn" onclick="startLesson('mix')">Играть</button></div>
+ </div>
+</section>
 
- <section class="page" id="worlds">
-  <h2>🌍 Математические миры</h2>
-  <p style="color:var(--muted)">Каждый мир открывает новые задания и испытания.</p>
-  <div class="grid" id="worldGrid"></div>
- </section>
+<section class="page" id="worlds">
+ <h2>🌍 Математические миры</h2>
+ <p style="color:var(--muted)">Открывай новые миры и развивай свои навыки.</p>
+ <div class="grid" id="worldGrid"></div>
+</section>
 
- <section class="page" id="lesson">
-  <div class="quizbox">
-   <span class="badge" id="quizMode">Урок</span>
-   <div class="progress"><div id="quizProgress" style="width:0%"></div></div>
-   <div style="text-align:center;color:var(--muted)" id="questionNumber">Вопрос 1 из 5</div>
-   <div class="question" id="question">5 + 5 = ?</div>
-   <div class="answers" id="answers"></div>
-   <div class="feedback" id="feedback"></div>
-   <button class="btn" id="nextBtn" style="width:100%;display:none" onclick="nextQuestion()">Следующий вопрос →</button>
-  </div>
- </section>
+<section class="page" id="lesson">
+ <div class="quizbox">
+  <span class="badge" id="quizMode">Урок</span>
+  <div class="progress"><div id="quizProgress" style="width:0%"></div></div>
+  <div style="text-align:center;color:var(--muted)" id="questionNumber">Вопрос 1 из 5</div>
+  <div class="question" id="question">5 + 5 = ?</div>
+  <div class="answers" id="answers"></div>
+  <div class="feedback" id="feedback"></div>
+  <button class="btn" id="nextBtn" style="width:100%;display:none" onclick="nextQuestion()">Следующий вопрос →</button>
+ </div>
+</section>
 
- <section class="page" id="duel">
-  <div class="hero"><h1>⚔️ Арена дуэлей</h1><p>Соревнуйся в математике! Пока доступен тренировочный соперник-компьютер. Для настоящих игроков позже подключим онлайн-сервер.</p></div>
-  <div class="grid" style="margin-top:18px">
-   <div class="card"><div class="emoji">🤖</div><h3>Быстрая тренировка</h3><p>Пять вопросов против виртуального соперника.</p><button class="btn" onclick="startDuel()">Начать дуэль</button></div>
-   <div class="card"><div class="emoji">🌐</div><h3>Онлайн-комнаты</h3><p>Будущие комнаты для приглашения друзей.</p><input class="field" id="roomCode" placeholder="Код комнаты"><button class="btn secondary" onclick="alert('Онлайн-сервер ещё не подключён. Этот режим появится в следующем этапе.')">Войти в комнату</button></div>
-  </div>
- </section>
+<section class="page" id="duel">
+ <div class="hero"><h1>⚔️ Арена дуэлей</h1><p>Пять вопросов против тренировочного соперника-компьютера.</p></div>
+ <div class="card" style="margin-top:15px">
+  <h3>🤖 Быстрая тренировка</h3>
+  <button class="btn" onclick="startDuel()">Начать дуэль</button>
+  <p>Настоящие онлайн-игроки появятся после подключения сервера.</p>
+ </div>
+</section>
 
- <section class="page" id="tournaments">
-  <div class="hero"><h1>🏆 Турниры</h1><p>Готовься к большим математическим соревнованиям!</p></div>
-  <div class="card" style="margin-top:15px"><h3>Первый турнир — скоро</h3><p>Здесь появятся соревнования, расписание, результаты и награды. Для общих турниров понадобится сервер.</p></div>
- </section>
+<section class="page" id="tournaments">
+ <div class="hero"><h1>🏆 Турниры</h1><p>Готовься к математическим соревнованиям!</p></div>
+ <div class="card"><h3>Первый турнир — скоро</h3><p>В будущем здесь появятся общие соревнования и результаты.</p></div>
+</section>
 
- <section class="page" id="leagues">
-  <h2>👑 Глобальные лиги</h2>
-  <div class="grid">
-   <div class="card"><div class="emoji">🥉</div><h3>Бронзовая</h3><p>Начальная лига</p></div>
-   <div class="card"><div class="emoji">🥈</div><h3>Серебряная</h3><p>Продвинутый уровень</p></div>
-   <div class="card"><div class="emoji">🥇</div><h3>Золотая</h3><p>Сильные игроки</p></div>
-   <div class="card"><div class="emoji">💎</div><h3>Алмазная</h3><p>Элита MathLingo</p></div>
-  </div>
-  <p style="color:var(--muted)">Пока это демонстрация лиг. Общий рейтинг появится после подключения сервера.</p>
- </section>
+<section class="page" id="leagues">
+ <h2>👑 Лиги</h2>
+ <div class="grid">
+  <div class="card"><div class="emoji">🥉</div><h3>Бронзовая</h3><p>Начальный уровень</p></div>
+  <div class="card"><div class="emoji">🥈</div><h3>Серебряная</h3><p>Продвинутый уровень</p></div>
+  <div class="card"><div class="emoji">🥇</div><h3>Золотая</h3><p>Сильные игроки</p></div>
+  <div class="card"><div class="emoji">💎</div><h3>Алмазная</h3><p>Элита MathLingo</p></div>
+ </div>
+ <p style="color:var(--muted)">Общий рейтинг появится после подключения сервера.</p>
+</section>
 
- <section class="page" id="shop">
-  <h2>🛍️ Магазин</h2>
-  <p style="color:var(--muted)">Покупай оформление за монеты, заработанные в уроках.</p>
-  <div class="grid" id="shopGrid"></div>
- </section>
+<section class="page" id="shop">
+ <h2>🛍️ Магазин</h2>
+ <p style="color:var(--muted)">Покупай оформление за заработанные монеты.</p>
+ <div class="grid" id="shopGrid"></div>
+</section>
 
- <section class="page" id="profile">
-  <div class="card">
-   <div class="emoji">👤</div><h2 id="profileName">Игрок MathLingo</h2>
-   <input class="field" id="nameInput" maxlength="18" placeholder="Твой никнейм">
-   <button class="btn" onclick="saveName()">Сохранить имя</button>
-   <h3>Твоя статистика</h3>
-   <p id="profileStats"></p>
-  </div>
- </section>
+<section class="page" id="profile">
+ <div class="card">
+  <div class="emoji">👤</div><h2 id="profileName">Игрок MathLingo</h2>
+  <input class="field" id="nameInput" maxlength="18" placeholder="Твой никнейм">
+  <button class="btn" onclick="saveName()">Сохранить имя</button>
+  <h3>Твоя статистика</h3>
+  <p id="profileStats"></p>
+ </div>
+</section>
 
- <section class="page" id="settings">
-  <h2>⚙️ Настройки</h2>
-  <div class="card">
-   <h3>Звуки интерфейса</h3>
-   <button class="btn secondary" onclick="toggleSound()" id="soundBtn">🔊 Звук включён</button>
-   <h3>Сброс прогресса</h3>
-   <p>Внимание: это удалит локальный прогресс на этом устройстве.</p>
-   <button class="btn secondary" onclick="resetGame()">Сбросить прогресс</button>
-  </div>
-  <p style="color:var(--muted)">MathLingo GLOBAL 5.0 • Created for learning</p>
- </section>
+<section class="page" id="settings">
+ <h2>⚙️ Настройки</h2>
+ <div class="card">
+  <h3>Звуки</h3>
+  <button class="btn secondary" id="soundBtn" onclick="toggleSound()">🔊 Звук включён</button>
+  <h3>Сброс прогресса</h3>
+  <button class="btn secondary" onclick="resetGame()">Сбросить прогресс</button>
+ </div>
+ <p style="color:var(--muted)">MathLingo GLOBAL 5.0</p>
+</section>
 </main>
 </div>
 
@@ -201,25 +258,28 @@ button{cursor:pointer;color:white;border:0}
 
 <script>
 const $=id=>document.getElementById(id);
-const defaults={xp:0,coins:0,correct:0,played:0,name:"Игрок MathLingo",sound:true,owned:[],theme:"default"};
-let data={...defaults,...JSON.parse(localStorage.getItem("mathlingo5")||"{}")};
-let questions=[],qIndex=0,score=0,mode="add",duel=false,answered=false;
+const defaults={xp:0,coins:0,correct:0,played:0,name:"Игрок MathLingo",sound:true,owned:[]};
+let data;
+try{
+ data={...defaults,...JSON.parse(localStorage.getItem("mathlingo5")||"{}")};
+}catch(e){data={...defaults}}
+let questions=[],qIndex=0,score=0,mode="add",answered=false;
 
 function save(){
- localStorage.setItem("mathlingo5",JSON.stringify(data));
+ try{localStorage.setItem("mathlingo5",JSON.stringify(data))}
+ catch(e){console.log("Сохранение недоступно",e)}
  updateUI();
 }
 function level(){return Math.floor(data.xp/100)+1}
 function updateUI(){
- $("level").textContent=level();$("xp").textContent=data.xp;
- $("coins").textContent=data.coins;$("homeLevel").textContent="Уровень "+level();
+ $("level").textContent=level();$("xp").textContent=data.xp;$("coins").textContent=data.coins;
+ $("homeLevel").textContent="Уровень "+level();
  $("xpbar").style.width=(data.xp%100)+"%";
  $("xptext").textContent=(data.xp%100)+" / 100 XP";
- $("correct").textContent=data.correct;
- $("streak").textContent=data.played;
+ $("correct").textContent=data.correct;$("played").textContent=data.played;
  $("achievements").textContent=(data.correct>=1?1:0)+(data.correct>=10?1:0)+(data.correct>=30?1:0);
  $("profileName").textContent=data.name;
- $("profileStats").textContent=`Уровень: ${level()} • XP: ${data.xp} • Монеты: ${data.coins} • Правильные ответы: ${data.correct}`;
+ $("profileStats").textContent=`Уровень: ${level()} • XP: ${data.xp} • Монеты: ${data.coins} • Ответы: ${data.correct}`;
  $("soundBtn").textContent=data.sound?"🔊 Звук включён":"🔇 Звук выключен";
 }
 const pages={home:"Главная",worlds:"Математические миры",lesson:"Обучение",duel:"Дуэли",tournaments:"Турниры",leagues:"Лиги",shop:"Магазин",profile:"Профиль",settings:"Настройки"};
@@ -236,39 +296,40 @@ const worlds=[
  ["sub","➖","Вычитание","Находи разницу","Лёгкий старт"],
  ["mul","✖️","Умножение","Освой таблицу","Средний"],
  ["div","➗","Деление","Тренируй деление","Средний"],
- ["mix","⚡","Микс","Все операции вместе","Сложный"],
+ ["mix","⚡","Микс","Все операции","Сложный"],
  ["boss","👾","Математический босс","Особое испытание","Эпический"]
 ];
 function renderWorlds(){
- $("worldGrid").innerHTML=worlds.map(w=>`<div class="card world"><div class="emoji">${w[1]}</div><h3>${w[2]}</h3><p>${w[3]}</p><span class="badge">${w[4]}</span><br><button class="btn" onclick="startLesson('${w[0]}')">Открыть мир</button></div>`).join("");
+ $("worldGrid").innerHTML=worlds.map(w=>`<div class="card world"><div class="emoji">${w[1]}</div><h3>${w[2]}</h3><p>${w[3]}</p><span class="badge">${w[4]}</span><br><br><button class="btn" onclick="startLesson('${w[0]}')">Открыть мир</button></div>`).join("");
 }
 function rand(n){return Math.floor(Math.random()*n)+1}
 function makeQuestion(){
  let a,b,op,answer;
- if(mode==="add"){a=rand(30);b=rand(30);op="+";answer=a+b}
- else if(mode==="sub"){a=rand(30)+10;b=rand(a);op="−";answer=a-b}
- else if(mode==="mul"){a=rand(12);b=rand(12);op="×";answer=a*b}
- else if(mode==="div"){b=rand(10);answer=rand(12);a=b*answer;op="÷"}
- else{let m=["add","sub","mul","div"];let old=mode;mode=m[rand(4)-1];let q=makeQuestion();mode=old;return q}
+ let selected=mode==="mix"||mode==="boss"?["add","sub","mul","div"][rand(4)-1]:mode;
+ if(selected==="add"){a=rand(30);b=rand(30);op="+";answer=a+b}
+ else if(selected==="sub"){a=rand(30)+10;b=rand(a);op="−";answer=a-b}
+ else if(selected==="mul"){a=rand(12);b=rand(12);op="×";answer=a*b}
+ else{b=rand(10);answer=rand(12);a=b*answer;op="÷"}
  let choices=new Set([answer]);
  while(choices.size<4)choices.add(Math.max(0,answer+rand(11)-6));
- return {text:`${a} ${op} ${b} = ?`,answer,choices:[...choices].sort(()=>Math.random()-.5)};
+ return{text:`${a} ${op} ${b} = ?`,answer,choices:[...choices].sort(()=>Math.random()-.5)};
 }
 function startLesson(type){
- mode=type;duel=false;qIndex=0;score=0;
+ mode=type;qIndex=0;score=0;
  questions=Array.from({length:5},()=>makeQuestion());
  $("quizMode").textContent="Математический мир";
+ $("nextBtn").onclick=nextQuestion;
  showPage("lesson");renderQuestion();
 }
 function startDuel(){
- mode="mix";duel=true;qIndex=0;score=0;
+ mode="mix";qIndex=0;score=0;
  questions=Array.from({length:5},()=>makeQuestion());
  $("quizMode").textContent="⚔️ Тренировочная дуэль";
+ $("nextBtn").onclick=nextQuestion;
  showPage("lesson");renderQuestion();
 }
 function renderQuestion(){
- answered=false;
- $("feedback").textContent="";
+ answered=false;$("feedback").textContent="";
  $("nextBtn").style.display="none";
  $("questionNumber").textContent=`Вопрос ${qIndex+1} из ${questions.length}`;
  $("quizProgress").style.width=(qIndex/questions.length*100)+"%";
@@ -291,7 +352,12 @@ function checkAnswer(value,button){
   button.style.borderColor="#ed6482";
  }
  if(data.sound){
-  try{let a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=value===q.answer?660:180;g.gain.value=.04;o.start();o.stop(a.currentTime+.12)}catch(e){}
+  try{
+   let a=new AudioContext(),o=a.createOscillator(),g=a.createGain();
+   o.connect(g);g.connect(a.destination);
+   o.frequency.value=value===q.answer?660:180;g.gain.value=.04;
+   o.start();o.stop(a.currentTime+.12);
+  }catch(e){}
  }
  $("nextBtn").style.display="block";
  $("nextBtn").textContent=qIndex===questions.length-1?"Завершить →":"Следующий вопрос →";
@@ -308,7 +374,7 @@ function nextQuestion(){
  $("feedback").textContent=`Ты получил ${reward} XP и ${score*3} монет!`;
  $("quizProgress").style.width="100%";
  $("nextBtn").textContent="Вернуться домой";
- $("nextBtn").onclick=()=>{ $("nextBtn").onclick=nextQuestion;showPage("home") };
+ $("nextBtn").onclick=()=>{showPage("home")};
 }
 function saveName(){
  let n=$("nameInput").value.trim();
@@ -321,9 +387,9 @@ function resetGame(){
  }
 }
 const items=[
- ["🌌","Космическая тема",50,"theme"],
- ["💜","Фиолетовая тема",30,"theme"],
- ["✨","Особый профиль",80,"profile"]
+ ["🌌","Космическая тема",50],
+ ["💜","Фиолетовая тема",30],
+ ["✨","Особый профиль",80]
 ];
 function renderShop(){
  $("shopGrid").innerHTML=items.map((it,i)=>`<div class="card"><div class="emoji">${it[0]}</div><h3>${it[1]}</h3><p>Цена: ${it[2]} монет</p><button class="btn" onclick="buyItem(${i})">${data.owned.includes(i)?"Куплено":"Купить"}</button></div>`).join("");
@@ -332,10 +398,11 @@ function buyItem(i){
  let it=items[i];
  if(data.owned.includes(i)){alert("У тебя уже есть этот предмет!");return}
  if(data.coins<it[2]){alert("Недостаточно монет!");return}
- data.coins-=it[2];data.owned.push(i);save();renderShop();alert("Покупка успешна!");
+ data.coins-=it[2];data.owned.push(i);save();renderShop();
+ alert("Покупка успешна!");
 }
 renderWorlds();renderShop();updateUI();
 </script>
 </body>
-                                                                                                                   </html>
-                                                                                                                   
+                                              </html>
+                                              
