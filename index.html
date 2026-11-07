@@ -3,7 +3,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#100b20">
 <title>MathLingo GLOBAL 6.0</title>
 <style>
@@ -194,7 +194,11 @@ const shopItems=[{id:"purple",icon:"💜",name:"Фиолетовая тема",p
 let questions=[],qIndex=0,score=0,mode="add",answered=false,duelMode=false;
 let arena={active:false,bot:"slime",playerHP:100,botHP:100,answer:0,locked:false,finished:false};
 const bots={slime:{name:"Слизень",emoji:"🟢",mode:"add"},goblin:{name:"Гоблин",emoji:"👹",mode:"mul"},mage:{name:"Тёмный маг",emoji:"🧙",mode:"mix"}};
-function save(){try{localStorage.setItem("mathlingo6",JSON.stringify(data));}catch(e){}updateUI();}
+
+function save(){
+ try{localStorage.setItem("mathlingo6",JSON.stringify(data));}catch(e){}
+ updateUI();
+}
 function level(){return Math.floor(data.xp/100)+1;}
 function updateUI(){
  $("level").textContent=level();$("xp").textContent=data.xp;$("coins").textContent=data.coins;
@@ -246,7 +250,7 @@ function showQuestion(){
  answered=false;let q=questions[qIndex];
  $("question").textContent=q.text;$("questionNumber").textContent=`Вопрос ${qIndex+1} из 5`;
  $("quizProgress").style.width=(qIndex/5*100)+"%";$("feedback").textContent="";
- $("nextBtn").style.display="none";
+ $("nextBtn").style.display="none";$("nextBtn").dataset.action="next-question";
  $("answers").innerHTML=makeOptions(q.answer).map(v=>`<button class="answer" data-action="answer" data-value="${v}">${v}</button>`).join("");
 }
 function answerQuestion(value){
@@ -271,7 +275,4 @@ function nextQuestion(){
   $("nextBtn").style.display="block";$("nextBtn").textContent="Вернуться к мирам";
   $("nextBtn").dataset.action="back-worlds";return;
  }
- showQuestion();
-}
-function updateHP(){
- $("playerHPTex
+ showQue
