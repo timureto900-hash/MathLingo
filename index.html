@@ -11,20 +11,20 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>MathLingo GLOBAL 5.0</title>
+<title>MathLingo GLOBAL 6.0</title>
 
 <style>
 :root{
  --bg:#0c0916;--panel:#171126;--panel2:#211832;
  --purple:#9b5cff;--pink:#ec62d5;--text:#f7f1ff;
- --muted:#a99bbd;--green:#57e6a1;--line:#302344;
+ --muted:#a99bbd;--green:#57e6a1;--red:#ff5277;
+ --line:#302344;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{
  margin:0;background:radial-gradient(circle at 80% 0%,#291344 0,transparent 35%),var(--bg);
  color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
- min-height:100vh;min-height:100dvh;
- padding-bottom:env(safe-area-inset-bottom);
+ min-height:100vh;min-height:100dvh;padding-bottom:env(safe-area-inset-bottom)
 }
 button,input{font:inherit}
 button{cursor:pointer;color:white;border:0;touch-action:manipulation}
@@ -37,7 +37,7 @@ button{cursor:pointer;color:white;border:0;touch-action:manipulation}
 .logo span{color:var(--purple)}
 .nav{display:grid;gap:7px}
 .nav button{
- background:transparent;text-align:left;padding:14px;border-radius:12px;
+ background:transparent;text-align:left;padding:13px;border-radius:12px;
  color:var(--muted);transition:.2s
 }
 .nav button:hover,.nav button.active{
@@ -54,14 +54,13 @@ button{cursor:pointer;color:white;border:0;touch-action:manipulation}
 }
 .hero:after{
  content:"✦";position:absolute;font-size:150px;right:25px;top:-30px;
- opacity:.15;animation:float 4s infinite ease-in-out
+ opacity:.15;animation:float 4s infinite ease-in-out;pointer-events:none
 }
 .hero h1{font-size:clamp(27px,5vw,42px);margin:0 0 10px}
 .hero p{color:#f0dfff;max-width:550px;line-height:1.5}
 .btn{
  background:linear-gradient(100deg,var(--purple),var(--pink));
- padding:14px 18px;border-radius:13px;font-weight:bold;transition:.2s;
- min-height:46px
+ padding:14px 18px;border-radius:13px;font-weight:bold;transition:.2s;min-height:46px
 }
 .btn:active{transform:scale(.97)}
 .btn.secondary{background:#302344;border:1px solid #513b70}
@@ -105,23 +104,89 @@ button{cursor:pointer;color:white;border:0;touch-action:manipulation}
 .mobilebar{
  display:none;position:fixed;bottom:0;left:0;right:0;
  padding:8px 5px calc(8px + env(safe-area-inset-bottom));
- background:#130e20;border-top:1px solid var(--line);
- z-index:5
+ background:#130e20;border-top:1px solid var(--line);z-index:5
 }
 .mobilebar button{background:transparent;color:var(--muted);font-size:11px;padding:7px 2px}
 .mobilebar button span{display:block;font-size:20px;margin-bottom:3px}
+
+/* ARENA */
+.arena-hero{
+ background:radial-gradient(circle at center,#45216d,#171126 70%);
+ border:1px solid #7542a5;border-radius:22px;padding:22px;margin-bottom:18px;
+ text-align:center;overflow:hidden
+}
+.arena-hero h1{font-size:clamp(27px,5vw,40px);margin:5px}
+.arena-hero p{color:#cdbce3}
+.bot-card{text-align:center;position:relative}
+.bot-card .emoji{font-size:55px;display:block;margin:8px}
+.bot-card .btn{width:100%;margin-top:10px}
+.bot-difficulty{color:#d8b9ff;font-size:12px}
+.battle{
+ max-width:850px;margin:20px auto;padding:20px;
+ background:linear-gradient(145deg,#21152f,#100c1c);
+ border:1px solid #7440a0;border-radius:22px
+}
+.battle-title{text-align:center;font-size:23px;font-weight:900;margin-bottom:15px}
+.fighters{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}
+.fighter-box{
+ background:#191126;border:1px solid var(--line);
+ padding:13px;border-radius:17px;text-align:center;overflow:hidden
+}
+.fighter-name{font-weight:bold;margin:5px}
+.fighter{
+ font-size:76px;display:inline-block;line-height:1.5;
+ transform-origin:center;will-change:transform
+}
+.hp-info{display:flex;justify-content:space-between;font-size:13px;margin-top:8px}
+.hp-bar{height:12px;background:#3b263e;border-radius:20px;overflow:hidden;margin-top:7px}
+.hp-fill{height:100%;width:100%;background:linear-gradient(90deg,#37dc8a,#8bffb9);transition:width .35s}
+.hp-fill.low{background:linear-gradient(90deg,#ff405e,#ff9c58)}
+.vs{text-align:center;font-size:22px;font-weight:900;color:#c68aff}
+.battle .quizbox{margin:18px auto 0;padding:15px}
+.battle .question{font-size:30px;margin:18px 0}
+.battle-feedback{min-height:42px;text-align:center;padding:12px;font-weight:bold}
+.reward-note{
+ background:#241936;border:1px solid #52366e;border-radius:12px;
+ padding:12px;text-align:center;margin-top:14px;color:#e4d3ff;font-size:13px
+}
+.attack-right{animation:attackRight .38s ease}
+.attack-left{animation:attackLeft .38s ease}
+.hit-shake{animation:hitShake .38s ease}
+@keyframes attackRight{
+ 0%{transform:translateX(0) scale(1)}
+ 45%{transform:translateX(35px) scale(1.2)}
+ 100%{transform:translateX(0) scale(1)}
+}
+@keyframes attackLeft{
+ 0%{transform:translateX(0) scale(1)}
+ 45%{transform:translateX(-35px) scale(1.2)}
+ 100%{transform:translateX(0) scale(1)}
+}
+@keyframes hitShake{
+ 0%,100%{transform:translateX(0)}
+ 20%{transform:translateX(-8px)}
+ 40%{transform:translateX(8px)}
+ 60%{transform:translateX(-6px)}
+ 80%{transform:translateX(6px)}
+}
+.result-win{color:#57e6a1;font-size:24px;font-weight:900;text-align:center}
+.result-loss{color:#ff6680;font-size:24px;font-weight:900;text-align:center}
+.arena-hidden{display:none!important}
 @keyframes appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes float{50%{transform:translateY(14px) rotate(12deg)}}
 @media(max-width:700px){
- .app{display:block}
- .sidebar{display:none}
+ .app{display:block}.sidebar{display:none}
  .main{padding:calc(17px + env(safe-area-inset-top)) 13px 100px}
- .mobilebar{display:grid;grid-template-columns:repeat(4,1fr)}
+ .mobilebar{display:grid;grid-template-columns:repeat(5,1fr)}
  .top{align-items:flex-start;flex-direction:column}
  .answers{grid-template-columns:1fr 1fr}
- .hero{padding:22px}
- .quizbox{padding:17px;margin:15px auto}
+ .hero{padding:22px}.quizbox{padding:17px;margin:15px auto}
  .question{font-size:26px}
+ .battle{padding:12px}
+ .fighter{font-size:58px}
+ .fighter-box{padding:8px}
+ .fighter-name{font-size:13px}
+ .hp-info{font-size:11px}
 }
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{animation:none!important;transition:none!important}
@@ -136,7 +201,8 @@ button{cursor:pointer;color:white;border:0;touch-action:manipulation}
  <div class="nav">
   <button class="active" data-page="home">🏠 Главная</button>
   <button data-page="worlds">🌍 Математические миры</button>
-  <button data-page="duel">⚔️ Дуэли</button>
+  <button data-page="arena">⚔️ Арена</button>
+  <button data-page="duel">🎮 Дуэли</button>
   <button data-page="tournaments">🏆 Турниры</button>
   <button data-page="leagues">👑 Лиги</button>
   <button data-page="shop">🛍️ Магазин</button>
@@ -157,10 +223,11 @@ button{cursor:pointer;color:white;border:0;touch-action:manipulation}
 
 <section class="page active" id="home">
  <div class="hero">
-  <span class="badge">GLOBAL 5.0 • iOS + ANDROID</span>
+  <span class="badge">GLOBAL 6.0 • ARENA UPDATE</span>
   <h1>Твоя математика.<br>Твой мир.</h1>
-  <p>Учись, проходи испытания, зарабатывай опыт и открывай новые математические миры!</p>
+  <p>Учись, сражайся с ботами, проходи испытания и зарабатывай монеты!</p>
   <button class="btn" onclick="showPage('worlds')">Начать обучение →</button>
+  <button class="btn secondary" onclick="showPage('arena')" style="margin:8px 0 0">⚔️ Войти на арену</button>
  </div>
  <h3 class="section-title">📊 Твой прогресс</h3>
  <div class="grid">
@@ -195,8 +262,79 @@ button{cursor:pointer;color:white;border:0;touch-action:manipulation}
  </div>
 </section>
 
+<!-- ARENA PAGE -->
+<section class="page" id="arena">
+ <div class="arena-hero">
+  <span class="badge">⚔️ MATHLINGO BATTLE ZONE</span>
+  <h1>АРЕНА</h1>
+  <p>Решай примеры, атакуй ботов и защищай свои HP!</p>
+  <div class="reward-note">🏆 Победа: +100 монет &nbsp; • &nbsp; 💀 Поражение: −50 монет</div>
+ </div>
+
+ <div id="botSelection">
+  <h2>Выбери противника</h2>
+  <p style="color:var(--muted)">У каждого противника 100 HP. Сложность влияет на примеры.</p>
+  <div class="grid">
+   <div class="card bot-card">
+    <span class="emoji">🟢</span><h3>Слизень</h3>
+    <span class="bot-difficulty">Лёгкий уровень</span>
+    <p>Простые примеры на сложение и вычитание.</p>
+    <span class="badge">100 HP</span>
+    <button class="btn" onclick="startArena('slime')">Сразиться</button>
+   </div>
+   <div class="card bot-card">
+    <span class="emoji">👹</span><h3>Гоблин</h3>
+    <span class="bot-difficulty">Средний уровень</span>
+    <p>Умножение, деление и смешанные задания.</p>
+    <span class="badge">100 HP</span>
+    <button class="btn" onclick="startArena('goblin')">Сразиться</button>
+   </div>
+   <div class="card bot-card">
+    <span class="emoji">🧙</span><h3>Тёмный маг</h3>
+    <span class="bot-difficulty">Сложный уровень</span>
+    <p>Большие числа и сложные вычисления.</p>
+    <span class="badge">100 HP</span>
+    <button class="btn" onclick="startArena('mage')">Сразиться</button>
+   </div>
+  </div>
+  <div class="grid" style="margin-top:15px">
+   <div class="card"><h3>🏆 Побед</h3><p id="arenaWins">0</p></div>
+   <div class="card"><h3>💀 Поражений</h3><p id="arenaLosses">0</p></div>
+  </div>
+ </div>
+
+ <div id="battleArea" class="arena-hidden">
+  <div class="battle">
+   <div class="battle-title">⚔️ МАТЕМАТИЧЕСКОЕ СРАЖЕНИЕ</div>
+   <div class="fighters">
+    <div class="fighter-box">
+     <div class="fighter-name" id="playerBattleName">Игрок</div>
+     <div class="fighter" id="playerFighter">🦸</div>
+     <div class="hp-info"><span>❤️ Твои HP</span><b id="playerHPText">100 / 100</b></div>
+     <div class="hp-bar"><div class="hp-fill" id="playerHPBar"></div></div>
+    </div>
+    <div class="fighter-box">
+     <div class="fighter-name" id="botBattleName">Бот</div>
+     <div class="fighter" id="botFighter">👹</div>
+     <div class="hp-info"><span>👾 HP бота</span><b id="botHPText">100 / 100</b></div>
+     <div class="hp-bar"><div class="hp-fill" id="botHPBar"></div></div>
+    </div>
+   </div>
+   <div class="vs">VS</div>
+   <div class="quizbox">
+    <span class="badge">🧠 БОЕВОЕ ЗАДАНИЕ</span>
+    <div class="question" id="arenaQuestion">10 + 5 = ?</div>
+    <div class="answers" id="arenaAnswers"></div>
+    <div class="battle-feedback" id="arenaFeedback">Выбери правильный ответ!</div>
+    <button class="btn" id="arenaNextBtn" style="display:none;width:100%" onclick="arenaNextQuestion()">Следующий ход →</button>
+    <button class="btn secondary" onclick="leaveArena()" style="width:100%;margin-top:9px">Покинуть бой</button>
+   </div>
+  </div>
+ </div>
+</section>
+
 <section class="page" id="duel">
- <div class="hero"><h1>⚔️ Арена дуэлей</h1><p>Пять вопросов против тренировочного соперника-компьютера.</p></div>
+ <div class="hero"><h1>⚔️ Дуэли</h1><p>Пять вопросов против тренировочного соперника-компьютера.</p></div>
  <div class="card" style="margin-top:15px">
   <h3>🤖 Быстрая тренировка</h3>
   <button class="btn" onclick="startDuel()">Начать дуэль</button>
@@ -244,7 +382,7 @@ button{cursor:pointer;color:white;border:0;touch-action:manipulation}
   <h3>Сброс прогресса</h3>
   <button class="btn secondary" onclick="resetGame()">Сбросить прогресс</button>
  </div>
- <p style="color:var(--muted)">MathLingo GLOBAL 5.0</p>
+ <p style="color:var(--muted)">MathLingo GLOBAL 6.0</p>
 </section>
 </main>
 </div>
@@ -252,17 +390,27 @@ button{cursor:pointer;color:white;border:0;touch-action:manipulation}
 <div class="mobilebar">
  <button onclick="showPage('home')"><span>🏠</span>Главная</button>
  <button onclick="showPage('worlds')"><span>🌍</span>Миры</button>
- <button onclick="showPage('duel')"><span>⚔️</span>Дуэли</button>
+ <button onclick="showPage('arena')"><span>⚔️</span>Арена</button>
+ <button onclick="showPage('shop')"><span>🛍️</span>Магазин</button>
  <button onclick="showPage('profile')"><span>👤</span>Профиль</button>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
-const defaults={xp:0,coins:0,correct:0,played:0,name:"Игрок MathLingo",sound:true,owned:[]};
+
+const defaults={
+ xp:0,coins:0,correct:0,played:0,
+ name:"Игрок MathLingo",sound:true,owned:[],
+ arenaWins:0,arenaLosses:0
+};
+
 let data;
 try{
  data={...defaults,...JSON.parse(localStorage.getItem("mathlingo5")||"{}")};
 }catch(e){data={...defaults}}
+
+if(!Array.isArray(data.owned))data.owned=[];
+
 let questions=[],qIndex=0,score=0,mode="add",answered=false;
 
 function save(){
@@ -270,26 +418,48 @@ function save(){
  catch(e){console.log("Сохранение недоступно",e)}
  updateUI();
 }
+
 function level(){return Math.floor(data.xp/100)+1}
+
 function updateUI(){
- $("level").textContent=level();$("xp").textContent=data.xp;$("coins").textContent=data.coins;
+ $("level").textContent=level();
+ $("xp").textContent=data.xp;
+ $("coins").textContent=data.coins;
  $("homeLevel").textContent="Уровень "+level();
  $("xpbar").style.width=(data.xp%100)+"%";
  $("xptext").textContent=(data.xp%100)+" / 100 XP";
- $("correct").textContent=data.correct;$("played").textContent=data.played;
- $("achievements").textContent=(data.correct>=1?1:0)+(data.correct>=10?1:0)+(data.correct>=30?1:0);
+ $("correct").textContent=data.correct;
+ $("played").textContent=data.played;
+ $("achievements").textContent=
+  (data.correct>=1?1:0)+(data.correct>=10?1:0)+(data.correct>=30?1:0);
  $("profileName").textContent=data.name;
- $("profileStats").textContent=`Уровень: ${level()} • XP: ${data.xp} • Монеты: ${data.coins} • Ответы: ${data.correct}`;
+ $("profileStats").textContent=
+  `Уровень: ${level()} • XP: ${data.xp} • Монеты: ${data.coins} • Ответы: ${data.correct}`;
  $("soundBtn").textContent=data.sound?"🔊 Звук включён":"🔇 Звук выключен";
+ $("arenaWins").textContent=data.arenaWins||0;
+ $("arenaLosses").textContent=data.arenaLosses||0;
 }
-const pages={home:"Главная",worlds:"Математические миры",lesson:"Обучение",duel:"Дуэли",tournaments:"Турниры",leagues:"Лиги",shop:"Магазин",profile:"Профиль",settings:"Настройки"};
+
+const pages={
+ home:"Главная",worlds:"Математические миры",lesson:"Обучение",
+ arena:"Арена",duel:"Дуэли",tournaments:"Турниры",
+ leagues:"Лиги",shop:"Магазин",profile:"Профиль",settings:"Настройки"
+};
+
 function showPage(name){
+ if(!pages[name])return;
  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- $(name).classList.add("active");$("pageTitle").textContent=pages[name];
- document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
+ $(name).classList.add("active");
+ $("pageTitle").textContent=pages[name];
+ document.querySelectorAll(".nav button").forEach(b=>
+  b.classList.toggle("active",b.dataset.page===name)
+ );
  window.scrollTo(0,0);
 }
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+
+document.querySelectorAll(".nav button").forEach(b=>{
+ b.onclick=()=>showPage(b.dataset.page);
+});
 
 const worlds=[
  ["add","➕","Сложение","Складывай числа","Лёгкий старт"],
@@ -299,110 +469,26 @@ const worlds=[
  ["mix","⚡","Микс","Все операции","Сложный"],
  ["boss","👾","Математический босс","Особое испытание","Эпический"]
 ];
+
 function renderWorlds(){
- $("worldGrid").innerHTML=worlds.map(w=>`<div class="card world"><div class="emoji">${w[1]}</div><h3>${w[2]}</h3><p>${w[3]}</p><span class="badge">${w[4]}</span><br><br><button class="btn" onclick="startLesson('${w[0]}')">Открыть мир</button></div>`).join("");
+ $("worldGrid").innerHTML=worlds.map(w=>
+ `<div class="card world">
+  <div class="emoji">${w[1]}</div><h3>${w[2]}</h3>
+  <p>${w[3]}</p><span class="badge">${w[4]}</span><br><br>
+  <button class="btn" onclick="startLesson('${w[0]}')">Открыть мир</button>
+ </div>`).join("");
 }
+
 function rand(n){return Math.floor(Math.random()*n)+1}
+
 function makeQuestion(){
  let a,b,op,answer;
- let selected=mode==="mix"||mode==="boss"?["add","sub","mul","div"][rand(4)-1]:mode;
+ let selected=mode==="mix"||mode==="boss"
+  ?["add","sub","mul","div"][rand(4)-1]:mode;
+
  if(selected==="add"){a=rand(30);b=rand(30);op="+";answer=a+b}
  else if(selected==="sub"){a=rand(30)+10;b=rand(a);op="−";answer=a-b}
  else if(selected==="mul"){a=rand(12);b=rand(12);op="×";answer=a*b}
  else{b=rand(10);answer=rand(12);a=b*answer;op="÷"}
- let choices=new Set([answer]);
- while(choices.size<4)choices.add(Math.max(0,answer+rand(11)-6));
- return{text:`${a} ${op} ${b} = ?`,answer,choices:[...choices].sort(()=>Math.random()-.5)};
-}
-function startLesson(type){
- mode=type;qIndex=0;score=0;
- questions=Array.from({length:5},()=>makeQuestion());
- $("quizMode").textContent="Математический мир";
- $("nextBtn").onclick=nextQuestion;
- showPage("lesson");renderQuestion();
-}
-function startDuel(){
- mode="mix";qIndex=0;score=0;
- questions=Array.from({length:5},()=>makeQuestion());
- $("quizMode").textContent="⚔️ Тренировочная дуэль";
- $("nextBtn").onclick=nextQuestion;
- showPage("lesson");renderQuestion();
-}
-function renderQuestion(){
- answered=false;$("feedback").textContent="";
- $("nextBtn").style.display="none";
- $("questionNumber").textContent=`Вопрос ${qIndex+1} из ${questions.length}`;
- $("quizProgress").style.width=(qIndex/questions.length*100)+"%";
- let q=questions[qIndex];$("question").textContent=q.text;
- $("answers").innerHTML="";
- q.choices.forEach(v=>{
-  let b=document.createElement("button");b.className="answer";b.textContent=v;
-  b.onclick=()=>checkAnswer(v,b);$("answers").appendChild(b);
- });
-}
-function checkAnswer(value,button){
- if(answered)return;answered=true;
- let q=questions[qIndex];
- document.querySelectorAll(".answer").forEach(b=>b.disabled=true);
- if(value===q.answer){
-  score++;data.correct++;$("feedback").textContent="✅ Правильно! Отличная работа!";
-  button.style.borderColor="var(--green)";
- }else{
-  $("feedback").textContent="❌ Правильный ответ: "+q.answer;
-  button.style.borderColor="#ed6482";
- }
- if(data.sound){
-  try{
-   let a=new AudioContext(),o=a.createOscillator(),g=a.createGain();
-   o.connect(g);g.connect(a.destination);
-   o.frequency.value=value===q.answer?660:180;g.gain.value=.04;
-   o.start();o.stop(a.currentTime+.12);
-  }catch(e){}
- }
- $("nextBtn").style.display="block";
- $("nextBtn").textContent=qIndex===questions.length-1?"Завершить →":"Следующий вопрос →";
-}
-function nextQuestion(){
- qIndex++;
- if(qIndex<questions.length){renderQuestion();return}
- let reward=score*10;
- data.xp+=reward;data.coins+=score*3;data.played++;
- save();
- $("question").textContent="🎉 Урок завершён!";
- $("questionNumber").textContent=`Результат: ${score} из ${questions.length}`;
- $("answers").innerHTML="";
- $("feedback").textContent=`Ты получил ${reward} XP и ${score*3} монет!`;
- $("quizProgress").style.width="100%";
- $("nextBtn").textContent="Вернуться домой";
- $("nextBtn").onclick=()=>{showPage("home")};
-}
-function saveName(){
- let n=$("nameInput").value.trim();
- if(n){data.name=n;save();alert("Имя сохранено!")}
-}
-function toggleSound(){data.sound=!data.sound;save()}
-function resetGame(){
- if(confirm("Точно сбросить весь прогресс?")){
-  localStorage.removeItem("mathlingo5");data={...defaults};save();showPage("home");
- }
-}
-const items=[
- ["🌌","Космическая тема",50],
- ["💜","Фиолетовая тема",30],
- ["✨","Особый профиль",80]
-];
-function renderShop(){
- $("shopGrid").innerHTML=items.map((it,i)=>`<div class="card"><div class="emoji">${it[0]}</div><h3>${it[1]}</h3><p>Цена: ${it[2]} монет</p><button class="btn" onclick="buyItem(${i})">${data.owned.includes(i)?"Куплено":"Купить"}</button></div>`).join("");
-}
-function buyItem(i){
- let it=items[i];
- if(data.owned.includes(i)){alert("У тебя уже есть этот предмет!");return}
- if(data.coins<it[2]){alert("Недостаточно монет!");return}
- data.coins-=it[2];data.owned.push(i);save();renderShop();
- alert("Покупка успешна!");
-}
-renderWorlds();renderShop();updateUI();
-</script>
-</body>
-                                              </html>
-                                              
+
+ 
